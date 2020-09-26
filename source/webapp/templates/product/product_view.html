@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}View{% endblock %}
+
+{% block menu %}
+    {% if perms.webapp.change_product %}
+        <li><a href="{% url 'product_update' product.pk %}" class="text-uppercase text-decoration-none">Update</a></li>
+    {% endif %}
+    {% if perms.webapp.delete_product %}
+        <li><a href="{% url 'product_delete' product.pk %}" class="text-uppercase text-decoration-none">Delete</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1 class="d-flex justify-content-center amatic-text text-info font-weight-bold">
+        {{ product.name }}</h1>
+    {% if product.image %}
+        <img class="avatar" src="{{ product.image.url }}" width="250" height="250" alt="product_pics/default.png">
+    {% endif %}
+    <p class="text-success font-weight-bold d-inline-block pr-2">Категория:
+    <h5 class="font-weight-bold text-info d-inline-block">{{ product.get_category_display }}</h5></p>
+    <p class="text-success font-weight-bold d-inline-block pr-2">Описание:
+    <h5 class="font-weight-bold text-info d-inline-block">{{ product.description }}</h5></p>
+
+{% endblock %}

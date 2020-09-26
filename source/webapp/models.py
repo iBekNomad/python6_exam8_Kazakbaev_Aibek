@@ -10,7 +10,7 @@ CATEGORY_CHOICES = [
     ('buy_sell', 'Купи-продай')
 ]
 
-DEFAULT = 'uploads/product_pics/default.png'
+DEFAULT = 'product_pics/default.png'
 
 RATES = [
     (1, 1),
@@ -23,8 +23,8 @@ RATES = [
 
 class Product(models.Model):
     name = models.CharField(max_length=200, null=False, blank=False, verbose_name='Название')
-    category = models.CharField(max_length=15, choices=CATEGORY_CHOICES, default=CATEGORY_CHOICES[0][0],
-                                verbose_name='Модерация')
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default=CATEGORY_CHOICES[0][0],
+                                verbose_name='Категории')
     description = models.TextField(max_length=3000, null=True, blank=True, verbose_name='Описание')
     image = models.ImageField(null=True, blank=True, upload_to='product_pics', default=DEFAULT, verbose_name='Картинка')
 
