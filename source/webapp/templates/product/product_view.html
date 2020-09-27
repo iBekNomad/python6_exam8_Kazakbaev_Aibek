@@ -34,6 +34,29 @@
     {% endif %}
     {% for review in reviews %}
         <div class="box border-info">
+            <div class="d-inline-block float-right font-weight-bold text-danger">
+                {% if review.rating == 1 %}
+                    <i class="fas fa-star"></i>
+                {% elif review.rating == 2 %}
+                    <i class="fas fa-star text-dark"></i>
+                    <i class="fas fa-star"></i>
+                {% elif review.rating == 3 %}
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                {% elif review.rating == 4 %}
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                {% elif review.rating == 5 %}
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                {% endif %}
+            </div>
             <h4>
                 <a href="{% url 'accounts:detail' review.author_id %}" class="text-decoration-none text-info font-weight-bold">{{ review.author }}</a>
             </h4>

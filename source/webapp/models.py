@@ -31,6 +31,17 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.name}'
 
+    def avg_rating(self):
+        ratings = Review.objects.filter(product=self.pk)
+        count = 0
+        for r in ratings:
+            count += r.rating
+        try:
+            avg = count / len(ratings)
+        except ZeroDivisionError:
+            avg = 'Not rated yet'
+        return round(avg, 1)
+
     class Meta:
         verbose_name = 'Товар-Услуга'
         verbose_name_plural = 'Товары-Услуги'
