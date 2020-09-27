@@ -38,7 +38,7 @@
                 {% if review.rating == 1 %}
                     <i class="fas fa-star"></i>
                 {% elif review.rating == 2 %}
-                    <i class="fas fa-star text-dark"></i>
+                    <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                 {% elif review.rating == 3 %}
                     <i class="fas fa-star"></i>
@@ -60,7 +60,7 @@
             <h4>
                 <a href="{% url 'accounts:detail' review.author_id %}" class="text-decoration-none text-info font-weight-bold">{{ review.author }}</a>
             </h4>
-            <div class="pre text-secondary d-flex justify-content-center">{{ review.text }}</div>
+            <h4 class="pre text-secondary d-flex justify-content-center">{{ review.text }}</h4>
             <div class="d-flex justify-content-around">
                 {% if perms.webapp.change_review or review.author == request.user %}
                     <p><a href="{% url 'webapp:review_update' review.pk %}" class="btn btn btn-info font-weight-bold">Update</a></p>

@@ -1,7 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 from django.shortcuts import  get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import ListView, DeleteView, UpdateView, CreateView
+from django.views.generic import DetailView, DeleteView, UpdateView, CreateView
 from webapp.forms import ProductForm, ReviewForm
 from webapp.models import Review, Product
 
@@ -47,3 +48,22 @@ class ReviewDeleteView(PermissionRequiredMixin, UserPassesTestMixin, DeleteView)
 
     def get_success_url(self):
         return reverse('webapp:product_view', kwargs={'pk': self.object.product.pk})
+
+
+class ReviewView(DetailView):
+    template_name = 'review/review_view.html'
+    model = Review
+    context_object_name = 'reviews'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+@login_required
+def review_mass_action_view(request):
+    if request.method == 'POST':
+        ids = request.POST.getlist('selected_reviews', [])
+        if 'delete' in request.POST:
+            Review.objects.filter(id__in=ids).delete()
+    return redirect('webapp:index')

@@ -31,4 +31,6 @@
             href="{{ user_obj.profile.github_profile }}">{{ user_obj.profile.github_profile }}</a></h5></p>
     <p class="text-success font-weight-bold d-inline-block pr-2">Почта:
     <h5 class="font-weight-bold text-info d-inline-block">{{ user_obj.email }}</h5></p>
+    <h2 class="text-center clear text-success font-weight-bold amatic-text">Мои отзывы:</h2>
+    {% include 'partial/review_list.html' %}
 {% endblock %}

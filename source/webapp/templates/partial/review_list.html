@@ -1,0 +1,34 @@
+{% if is_paginated %}
+    {% include 'partial/pagination.html' %}
+{% endif %}
+
+<form action="{% url "webapp:review_mass_action" %}" method="post">
+    {% csrf_token %}
+    {% if perms.webapp.delete_review %}
+        <p class="mass-actions"><input type="submit" name="delete" value="Delete selected"></p>
+    {% endif %}
+    {% for review in reviews %}
+        <div class="box border-info text-center">
+            <h3><a href="{% url "webapp:review_view" review.pk %}">{{ review.text }}</a></h3>
+            {% if perms.webapp.delete_review %}
+                <p>
+                    <label for="selected_reviews-{{ review.pk }}" class="text-success font-weight-bold">Select:</label>
+                    <input type="checkbox" name="selected_reviews"
+                           id="selected_reviews-{{ review.pk }}" value="{{ review.pk }}">
+                </p>
+            {% endif %}
+            {% if perms.webapp.change_review or request.user == review.author %}
+                <p class="font-weight-bold"><a href="{% url 'webapp:review_update' review.pk %}">Update</a></p>
+            {% endif %}
+            {% if perms.webapp.delete_review or request.user == review.author %}
+                <p class="font-weight-bold"><a href="{% url 'webapp:review_delete' review.pk %}">Delete</a></p>
+            {% endif %}
+        </div>
+    {% empty %}
+        <h2 class="text-center clear text-success font-weight-bold amatic-text">Нет отзывов</h2>
+    {% endfor %}
+</form>
+
+{% if is_paginated %}
+    {% include 'partial/pagination.html' %}
+{% endif %}

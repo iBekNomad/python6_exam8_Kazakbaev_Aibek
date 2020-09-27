@@ -1,3 +1,5 @@
+import math
+
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -40,7 +42,7 @@ class Product(models.Model):
             avg = count / len(ratings)
         except ZeroDivisionError:
             avg = 'Not rated yet'
-        return round(avg, 1)
+        return math.ceil(avg)
 
     class Meta:
         verbose_name = 'Товар-Услуга'
