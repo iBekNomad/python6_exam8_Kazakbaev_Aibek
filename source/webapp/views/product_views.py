@@ -15,7 +15,7 @@ from ..forms import ProductForm
 class IndexView(SearchView):
     template_name = 'index.html'
     context_object_name = 'products'
-    paginate_by = 2
+    paginate_by = 6
     paginate_orphans = 0
     model = Product
     search_fields = ['name__icontains', 'author__icontains']

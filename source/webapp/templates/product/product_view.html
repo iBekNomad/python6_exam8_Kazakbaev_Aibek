@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block title %}View{% endblock %}
 
@@ -16,30 +17,35 @@
     <h1 class="d-flex justify-content-center amatic-text text-info font-weight-bold">
         {{ product.name }}</h1>
     {% if product.image %}
-        <img class="avatar" src="{{ product.image.url }}" width="250" height="250" alt="product_pics/default.png">
+        <img class="img-fluid" src="{{ product.image.url }}" width="250" height="250" alt="{{ product.name }}">
+    {% else %}
+         <img class="img-fluid" src="{% static 'img/default.png' %}" width="250" height="250" alt="product picture">
     {% endif %}
+    <p></p>
     <p class="text-success font-weight-bold d-inline-block pr-2">Категория:
     <h5 class="font-weight-bold text-info d-inline-block">{{ product.get_category_display }}</h5>
     </p>
     <p class="text-success font-weight-bold d-inline-block pr-2">Описание:
     <h5 class="font-weight-bold text-info d-inline-block">{{ product.description }}</h5>
     </p>
-    <h3>Reviews:</h3>
+    <h3 class="amatic-text font-weight-bold text-info">Reviews:</h3>
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
     {% endif %}
     {% for review in reviews %}
-        <div class="box">
+        <div class="box border-info">
             <h4>
-                <a href="{% url 'accounts:detail' review.author_id %}">{{ review.author }}</a>
+                <a href="{% url 'accounts:detail' review.author_id %}" class="text-decoration-none text-info font-weight-bold">{{ review.author }}</a>
             </h4>
-            <div class="pre">{{ review.text }}</div>
-            {% if perms.webapp.change_review or review.author == request.user %}
-                <p><a href="{% url 'webapp:review_update' review.pk %}">Update</a></p>
-            {% endif %}
-            {% if perms.webapp.delete_review or review.author == request.user %}
-                <p><a href="{% url 'webapp:review_delete' review.pk %}">Delete</a></p>
-            {% endif %}
+            <div class="pre text-secondary d-flex justify-content-center">{{ review.text }}</div>
+            <div class="d-flex justify-content-around">
+                {% if perms.webapp.change_review or review.author == request.user %}
+                    <p><a href="{% url 'webapp:review_update' review.pk %}" class="btn btn btn-info font-weight-bold">Update</a></p>
+                {% endif %}
+                {% if perms.webapp.delete_review or review.author == request.user %}
+                    <p><a href="{% url 'webapp:review_delete' review.pk %}" class="btn btn btn-info d-inline-block font-weight-bold">Delete</a></p>
+                {% endif %}
+            </div>
         </div>
     {% empty %}
         <p>Нет отзывов</p>

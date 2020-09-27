@@ -9,8 +9,8 @@ CATEGORY_CHOICES = [
     ('tv_repair', 'Ремонт телевизоров'),
     ('buy_sell', 'Купи-продай')
 ]
-
-DEFAULT = 'product_pics/default.png'
+#
+# DEFAULT = 'product_pics/default.png'
 
 RATES = [
     (1, 1),
@@ -26,7 +26,7 @@ class Product(models.Model):
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default=CATEGORY_CHOICES[0][0],
                                 verbose_name='Категории')
     description = models.TextField(max_length=3000, null=True, blank=True, verbose_name='Описание')
-    image = models.ImageField(null=True, blank=True, upload_to='product_pics', default=DEFAULT, verbose_name='Картинка')
+    image = models.ImageField(null=True, blank=True, upload_to='product_pics', verbose_name='Картинка')
 
     def __str__(self):
         return f'{self.name}'

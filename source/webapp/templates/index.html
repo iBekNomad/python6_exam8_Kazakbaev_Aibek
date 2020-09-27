@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block title %}Main{% endblock %}
 
@@ -22,17 +23,23 @@
                                    class="text-decoration-none list-group-item-info font-weight-bold">{{ product.name }}</a>
                             </h3>
                             <h4 class="list-group-item-info font-weight-bold"><span
-                                    class="text-info font-weight-light mr-1">Category:</span> {{ product.category }}
+                                    class="text-info font-weight-light mr-1">Category:</span> {{ product.get_category_display }}
                             </h4>
                             {% if product.image %}
                                 <img class="avatar" src="{{ product.image.url }}" width="250" height="250"
-                                     alt="product_pics/default.png">
+                                     alt="#">
+                            {% else %}
+                                <img class="avatar" src="{% static 'img/default.png' %}" width="250" height="250"
+                                     alt="product picture">
                             {% endif %}
                         </div>
                     </div>
                     <div class="card-body text-info d-flex list-group-item-info">
                         <h4 class="card-text mr-auto">about: <span
                                 class="pl-2 list-group-item-info font-weight-bold">{{ product.description }}</span></h4>
+                    </div>
+                    <div>
+
                     </div>
                 </div>
             </div>
