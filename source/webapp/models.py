@@ -41,7 +41,7 @@ class Product(models.Model):
         try:
             avg = count / len(ratings)
         except ZeroDivisionError:
-            avg = 'Not rated yet'
+            avg = 0
         return math.ceil(avg)
 
     class Meta:
