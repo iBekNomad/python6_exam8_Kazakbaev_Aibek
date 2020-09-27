@@ -7,34 +7,32 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="text-uppercase text-info amatic-text d-flex justify-content-center font-weight-bold pt-4">Products and Services</h1>
+    <h1 class="text-uppercase text-info amatic-text d-flex justify-content-center font-weight-bold pt-4">Products and
+        Services</h1>
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
     {% endif %}
     <div class="row row-cols-1 row-cols-md-3">
         {% for product in products %}
-            <div class="col mb-4">
-                <div class="card border-info mb-3" style="max-width: 18rem;">
-                    <div class="card-header border-info a-text"><a
-                            class="text-success text-uppercase font-weight-bold text-decoration-none"
-                            href="{% url "product_view" product.pk %}">{{ product.name }}</a>
-                    </div>
-                    <div class="card-body text-success">
-                        {% if product.image %}
-                            <img class="avatar" src="{{ product.image.url }}" width="250" height="250" alt="product_pics/default.png">
-                        {% endif %}
-                        <p class="card-text text-info">Category: {{ product.get_category_display }}</p>
-                        <p class="card-text">{{ product.description }}</p>
-                    </div>
-                    <div class="card-footer bg-transparent border-info">
-                        <div class="d-flex justify-content-around">
-{#                            {% if perms.webapp.change_issue  %}#}
-{#                                <p><a href="{% url "issue_update" product.pk %}" class="btn btn-sm btn-info">Update</a></p>#}
-{#                            {% endif %}#}
-{#                            {% if perms.webapp.delete_issue and request.user in project.user.all %}#}
-{#                                <p><a href="{% url "issue_delete" product.pk %}" class="btn btn-sm btn-info">Delete</a></p>#}
-{#                            {% endif %}#}
+            <div class="col-sm-6">
+                <div class="card border-info mb-3">
+                    <div class="d-flex bd-highlight list-group-item-info">
+                        <div class="mr-auto p-2 bd-highlight">
+                            <h3><a href="{% url 'webapp:product_view' product.pk %}"
+                                   class="text-decoration-none list-group-item-info font-weight-bold">{{ product.name }}</a>
+                            </h3>
+                            <h4 class="list-group-item-info font-weight-bold"><span
+                                    class="text-info font-weight-light mr-1">Category:</span> {{ product.category }}
+                            </h4>
+                            {% if product.image %}
+                                <img class="avatar" src="{{ product.image.url }}" width="250" height="250"
+                                     alt="product_pics/default.png">
+                            {% endif %}
                         </div>
+                    </div>
+                    <div class="card-body text-info d-flex list-group-item-info">
+                        <h4 class="card-text mr-auto">about: <span
+                                class="pl-2 list-group-item-info font-weight-bold">{{ product.description }}</span></h4>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}View{% endblock %}
+
+{% block menu %}
+    {% if perms.webapp.change_product %}
+        <li><a href="{% url 'webapp:product_update' product.pk %}" class="text-uppercase text-decoration-none">Update</a></li>
+    {% endif %}
+    {% if perms.webapp.delete_product %}
+        <li><a href="{% url 'webapp:product_delete' product.pk %}" class="text-uppercase text-decoration-none">Delete</a></li>
+    {% endif %}
+{% endblock %}
+
+{% if is_paginated %}
+            {% include 'partial/pagination.html' %}
+        {% endif %}
+        {% for review in reviews %}
+            <div class="box">
+                <h4>
+                    <a href="{% url 'accounts:detail' review.author_id %}">{{ review.author }}</a>
+                </h4>
+                <div class="pre">{{ review.text }}</div>
+                {% if perms.webapp.change_review or review.author == request.user %}
+                    <p><a href="{% url 'webapp:review_update' review.pk %}">Update</a></p>
+                {% endif %}
+                {% if perms.webapp.delete_review or review.author == request.user %}
+                    <p><a href="{% url 'webapp:review_delete' review.pk %}">Delete</a></p>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>Нет отзывов</p>
+        {% endfor %}
+        {% if is_paginated %}
+            {% include 'partial/pagination.html' %}
+        {% endif %}

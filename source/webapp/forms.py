@@ -21,4 +21,4 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['text', 'rating']
-        widgets = {'rating': forms.CheckboxSelectMultiple}
+        widgets = {'rating': forms.Select}
